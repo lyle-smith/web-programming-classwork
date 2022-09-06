@@ -1,6 +1,6 @@
 # web-programming-classwork
 
-<img src="IMG_0232.JPG" alt="Picture of me sitting with my dog, Fudge" style="height:200px width:200px">
+<img src="IMG_0232.JPG" alt="Picture of me sitting with my dog, Fudge" style="height:100px; width:100px;">
 
 ## My previous programming experience
 My first experience with programming was taking the web development/intro to programming elective in my senior year of high school. That class piqued my interest in programming and helped me to realize that I wanted to go into a career in programming in the future. Since taking that class I have taken several programming courses on udemy and received my Associate's Degree in Computer Science at SUNY Orange before transferring to New Paltz. This summer I was able to do an internship for a tech company that a family member owns, and had the opportunity to learn blockchain development with solidity and web3.js. I also had the opportunity to work on the back end of a website that their company is developing, and learned how to send requests to REST APIs using the OAuth protocol, in addition to greatly strengthening my PHP proficiency.
