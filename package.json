@@ -1,0 +1,22 @@
+{
+  "name": "web-programming-classwork",
+  "version": "1.0.0",
+  "description": "<img src=\"IMG_0232.JPG\" alt=\"Picture of me sitting with my dog, Fudge\" style=\"height:400px; width:400px; margin-auto;\">",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lyle-smith/web-programming-classwork.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lyle-smith/web-programming-classwork/issues"
+  },
+  "homepage": "https://github.com/lyle-smith/web-programming-classwork#readme",
+  "dependencies": {
+    "@railway/cli": "^2.0.11"
+  }
+}
