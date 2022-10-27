@@ -21,7 +21,7 @@ function addToCart(item: any) {
   <div class="about">
     <h1 class="title">This is an about page</h1>
     <ul>
-      <li v-for="item in items" :key="item.name">
+      <li v-for="item in items" :key="item.name" @click="addToCart(item)">
         <h3>{{ item.name }}</h3>
         <i>${{ item.cost }}</i>
       </li>
@@ -35,7 +35,7 @@ function addToCart(item: any) {
         <th>Quantity</th>
         <th>Cost</th>
       </tr>
-      <tr v-for="item in cart" :key="item.name" @click="addToCart(item)">
+      <tr v-for="item in cart" :key="item.name">
         <td>{{ item.name }}</td>
         <td>{{ item.cost }}</td>
         <td>
