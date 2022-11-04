@@ -1,12 +1,14 @@
-<!-- eslint-disable prettier/prettier -->
 <script setup lang="ts">
-  import { ref } from 'vue';
-  import { RouterLink } from 'vue-router';
-  import LoginBadge from './LoginBadge.vue';
-
-  let isActive = ref(false);
+import { ref } from "vue";
+import { RouterLink } from "vue-router";
+import Cart from "./ShoppingCart.vue";
+import LoginBadge from "./LoginBadge.vue";
+const isActive = ref(false);
+const isCartOpen = ref(false);
 </script>
+
 <template>
+  <Cart :is-open="isCartOpen" />
   <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
     <div class="container">
       <div class="navbar-brand">
@@ -38,14 +40,17 @@
         :class="{ 'is-active': isActive }"
       >
         <div class="navbar-start">
-          <router-link to="/" class="navbar-item">Home</router-link>
-          <router-link to="/products" class="navbar-item">Store</router-link>
+          <router-link to="/" class="navbar-item"> Home </router-link>
+
+          <router-link class="navbar-item" to="/products">
+            Products
+          </router-link>
 
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link"> More </a>
 
             <div class="navbar-dropdown">
-              <router-link to="/about" class="navbar-item">About</router-link>
+              <router-link class="navbar-item" to="/about"> About </router-link>
               <a class="navbar-item"> Jobs </a>
               <a class="navbar-item"> Contact </a>
               <hr class="navbar-divider" />
@@ -56,9 +61,12 @@
 
         <div class="navbar-end">
           <div class="navbar-item">
-            <div class="buttons">
-              <LoginBadge />
-            </div>
+            <button class="button is-primary" @click="isCartOpen = !isCartOpen">
+              <strong>Cart</strong>
+            </button>
+          </div>
+          <div class="navbar-item">
+            <login-badge></login-badge>
           </div>
         </div>
       </div>
@@ -68,7 +76,6 @@
 
 <style>
 .router-link-active {
-  background-color: #0f0;
-  border-bottom: #00cc00 2px solid;
+  border-bottom: #00aa00 5px solid;
 }
 </style>
