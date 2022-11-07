@@ -13,7 +13,7 @@ app
     if (product) {
       res.status(200).send(product);
     } else {
-      res.status(404).send('Product not found');
+      res.status(404).send('<b>' + req.params.id + '</b> not found');
     }
   });
 
