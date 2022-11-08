@@ -3,7 +3,11 @@ import { addProductToCart } from "@/stores/cart";
 import { computed, reactive, ref, watch } from "vue";
 import { RouterLink } from "vue-router";
 import { getProducts, type Product } from "../stores/products";
-const products = reactive(getProducts());
+
+const products = ref([] as Product[]);
+getProducts().then((x) => {
+  products.value = x;
+});
 const search = ref("");
 function addToCart(product: Product) {
   addProductToCart(product);
@@ -21,7 +25,7 @@ function addToCart(product: Product) {
         class="product"
         v-for="product in products"
         :key="product.id"
-        :to="`/product/${product.id}`"
+        :to="`/products/${product.id}`"
         v-show="product.title.toLowerCase().includes(search.toLowerCase())"
       >
         <div class="product-image">
