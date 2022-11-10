@@ -6,7 +6,7 @@ import { getProducts, type Product } from "../stores/products";
 
 const products = ref([] as Product[]);
 getProducts().then((x) => {
-  products.value = x;
+  products.value = x.products;
 });
 const search = ref("");
 function addToCart(product: Product) {
