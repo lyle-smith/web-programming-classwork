@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 
 const productsController = require('./controllers/products')
+const cartController = require('./controllers/cart')
 
 const hostname = '127.0.0.1';
 const port = process.env.PORT || 3000;
@@ -22,6 +23,7 @@ app
   res.status(200).send('Happy New Year!');
 })
 .use('/api/v1/products', productsController)
+.use('/api/v1/cart', cartController)
 
 // Let client handle routing
 app.get('*', (req, res) => {
