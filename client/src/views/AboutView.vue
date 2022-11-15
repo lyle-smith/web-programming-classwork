@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive } from "vue";
 
 const items = [
   { name: "Shoes", cost: 30 },
@@ -42,7 +42,6 @@ function addToCart(item: any) {
           <input v-model="item.qty" />
         </td>
         <td>${{ item.cost * item.qty }}</td>
-
       </tr>
     </table>
   </div>

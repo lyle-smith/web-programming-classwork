@@ -1,26 +1,57 @@
-// CartItem : { id: 1, quantity: 2, productId: 1, userId: "mp@np.edu" }
+const { getProduct } = require('./products');
+
 const list = [];
 
-const add = (productId, userId, quantity) => {
+const get = (userId) => {
+  return list
+  .filter((cartItem) => cartItem.userId === userId)
+  .map((cartItem) => ({ 
+    ...cartItem, 
+    product: getProduct(cartItem.productId) 
+  }));
+};
+
+/**
+ * 
+ * @param {string} userId 
+ * @param {number} productId 
+ * @param {number} quantity 
+ * @returns 
+ */
+const add = (userId, productId, quantity) => {
   let cartItem = list.find((item) => item.userId === userId && item.productId === productId);
   if (cartItem) {
     cartItem.quantity += quantity;
   } else {
-    cartItem = { id: list.length + 1, quantity: +quantity, productId, userId };
+    cartItem = { 
+      id: list.length + 1, 
+      quantity, 
+      productId, userId 
+    };
+    list.push(cartItem);
   }
-  return cartItem;
+  return { ...cartItem, product: getProduct(productId) };
 };
 
-const get = (userId) => {
-  return list.filter((item) => item.userId === userId);
-};
-
-const remove = (userId, productId) => {
+/**
+ * 
+ * @param {string} userId 
+ * @param {number} productId 
+ * @param {number} quantity 
+ * @returns 
+ */
+const update = (userId, productId, quantity) => {
   const index = list.findIndex((item) => item.userId === userId && item.productId === productId);
   if (index !== -1) {
-    list.splice(index, 1);
+    if (quantity === 0) {
+      list.splice(index, 1);
+    } else {
+      list[index].quantity = quantity;
+    }
+  } else {
+    throw new Error('Cart item not found');
   }
-  return index;
+  return index.toString();
 }
 
-module.exports = { add, get, remove };
+module.exports = { add, get, update };
