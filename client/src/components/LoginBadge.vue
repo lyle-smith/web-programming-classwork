@@ -1,6 +1,22 @@
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
 import session, { login } from "../stores/session";
+
+function getName() {
+  if (session.user?.name) {
+    return session.user.name;
+  } else {
+    return "Guest";
+  }
+}
+
+function getEmail() {
+  if (session.user?.email) {
+    return session.user.email;
+  } else {
+    return "Guest";
+  }
+}
 </script>
 
 <template>
@@ -11,7 +27,7 @@ import session, { login } from "../stores/session";
     <RouterLink
       to="login"
       class="button is-light"
-      @click="login(session.user.name, session.user.email, 'password')"
+      @click="login(getName(), getEmail(), 'password')"
     >
       Log in
     </RouterLink>
