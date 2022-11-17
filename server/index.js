@@ -16,7 +16,9 @@ app.use((req, res, next) => {
 });
 
 // serve client files
-app.use('/', express.static('./client/dist'))
+app.use('/', express.static('./client/dist'));
+
+app.use(express.json());
 
 app
 .get('/', (req, res) => {
