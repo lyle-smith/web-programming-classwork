@@ -17,7 +17,7 @@ export function setError(error: string | null) {
   }
 }
 
-export const isLoadin = computed(() => !!session.loading);
+export const isLoading = computed(() => !!session.loading);
 
 export async function api<T>(url: string, data: any = null, method?: string) {
   session.loading++;
@@ -29,6 +29,7 @@ export async function api<T>(url: string, data: any = null, method?: string) {
   } finally {
     session.loading--;
   }
+  return {} as T;
 }
 
 export function login(name: string, email: string, password: string) {

@@ -3,6 +3,7 @@ import { addProductToCart } from "@/stores/cart";
 import { ref } from "vue";
 import { RouterLink } from "vue-router";
 import { getProducts, type Product } from "../stores/products";
+import { isLoading } from "../stores/session";
 
 const products = ref([] as Product[]);
 getProducts().then((x) => {
@@ -22,8 +23,8 @@ function addToCart(product: Product) {
 
     <div class="products">
       <RouterLink
-        class="product"
         v-for="product in products"
+        class="product"
         :key="product.id"
         :to="`/products/${product.id}`"
         v-show="product.title.toLowerCase().includes(search.toLowerCase())"
@@ -36,6 +37,7 @@ function addToCart(product: Product) {
           <p>{{ product.description }}</p>
           <button
             class="button is-small is-primary is-rounded add"
+            :class="{ 'is-loading': isLoading }"
             @click.prevent="addToCart(product)"
           >
             +
@@ -59,6 +61,12 @@ function addToCart(product: Product) {
 .add {
   float: right;
 }
+
+.is-disabled {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
 .product {
   flex-basis: 10em;
   margin: 1em;

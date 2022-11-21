@@ -14,12 +14,16 @@
       </p>
     </div>
   </div>
-  <div v-else>
+  <div v-else-if="isLoading">
+    <img src="../assets/loading-product-placeholder.gif" />
+  </div>
+  <div v-else class="section">
     <h2 class="title">Product not found</h2>
   </div>
 </template>
 
 <script setup lang="ts">
+import { isLoading } from "@/stores/session";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { getProduct, type Product } from "../stores/products";
