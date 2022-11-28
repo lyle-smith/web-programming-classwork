@@ -32,6 +32,10 @@ export function addProductToCart(product: Product, quantity: number = 1) {
         });
       } else {
         cart.unshift(data as CartItem);
+        session.messages.push({
+          type: "success",
+          text: `Added ${product.title} to cart`,
+        });
       }
     }
   );

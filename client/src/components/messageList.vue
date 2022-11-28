@@ -9,7 +9,7 @@ function deleteMessage(id: number) {
 <template>
   <div class="navbar-item has-dropdown is-hoverable">
     <a class="navbar-link">
-      <span class="icon">
+      <span class="icon" :class="{ loader: isLoading }">
         <i class="fas fa-bell"></i>
       </span>
       <span class="tag is-danger" v-if="session.messages.length">
@@ -35,12 +35,16 @@ function deleteMessage(id: number) {
 </template>
 
 <style scoped>
+.icon {
+  font-size: 1.5em;
+}
+
 .navbar-dropdown {
   width: max-content;
   max-width: 300px;
 }
 
-.notification {
+.navbar-item.has-dropdown .notification {
   margin: 0.5rem;
   width: calc(100% - 1rem);
 }
