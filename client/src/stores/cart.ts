@@ -21,17 +21,20 @@ export function load() {
 watch(() => session.user, load);
 
 export function addProductToCart(product: Product, quantity: number = 1) {
-  api<CartItem>(
-    `cart/${session.user?.email}/${product.id}/${quantity}`,
-    []
-  ).then((data) => {
-    const i = cart.findIndex((item) => item.product.id === product.id);
-    if (i != -1) {
-      cart[i] = data as CartItem;
-    } else {
-      cart.unshift(data as CartItem);
+  api(`cart/${session.user?.email}`, { productId: product.id, quantity }).then(
+    (data) => {
+      const i = cart.findIndex((item) => item.product.id === product.id);
+      if (i != -1) {
+        cart[i] = data as CartItem;
+        session.messages.push({
+          type: "success",
+          text: `Updated ${product.title} in cart to ${cart[i].quantity}`,
+        });
+      } else {
+        cart.unshift(data as CartItem);
+      }
     }
-  });
+  );
 }
 
 export function updateProductQuantity(id: number, quantity: number) {
