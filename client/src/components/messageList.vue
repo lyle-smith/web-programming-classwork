@@ -9,7 +9,9 @@ function deleteMessage(id: number) {
 <template>
   <div class="navbar-item has-dropdown is-hoverable">
     <a class="navbar-link">
-      Messages
+      <span class="icon">
+        <i class="fas fa-bell"></i>
+      </span>
       <span class="tag is-danger" v-if="session.messages.length">
         {{ session.messages.length }}
       </span>
