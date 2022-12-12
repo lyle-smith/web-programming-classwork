@@ -6,7 +6,7 @@ const app = express.Router();
 app
   .get('/', (req, res, next) => {
     products.getProducts()
-    .then(x =>  res.status(200).send(products.getProducts()))
+    .then((x) =>  res.status(200).send(x))
     .catch(next);
   })
   .get('/:id', (req, res, next) => {
@@ -19,6 +19,11 @@ app
         res.status(404).send('<b>' + req.params.id + '</b> not found');
       }
     })
+    .catch(next);
+  })
+  .post('/seed', (req, res, next) => {
+    products.seed()
+    .then(x =>  res.status(200).send(x))
     .catch(next);
   });
 

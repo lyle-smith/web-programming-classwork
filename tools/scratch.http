@@ -2,6 +2,10 @@ http://localhost:3003/api/v1/products/3
 
 ###
 
+POST http://localhost:3003/api/v1/products/seed
+
+###
+
 http://localhost:3003/api/v1/products/5
 
 ###

@@ -1,10 +1,16 @@
-const { getProduct } = require('./products');
+const { getProduct, collection } = require('./products');
 
 const list = [];
 
-const get = (userId) => {
-  return list
-  .filter((cartItem) => cartItem.userId === userId)
+const { connect } = require('./mongo');
+const { Db } = require('mongodb');
+
+const COLLECTION_NAME = "cart";
+
+const get = async (userId) => {
+  const db = await collection();
+  const data = await db.find({ userId }).toArray();
+  return data
   .map((cartItem) => ({ 
     ...cartItem, 
     product: getProduct(cartItem.productId) 
@@ -18,17 +24,21 @@ const get = (userId) => {
  * @param {number} quantity 
  * @returns 
  */
-const add = (userId, productId, quantity) => {
-  let cartItem = list.find((item) => item.userId === userId && item.productId === productId);
+const add = async (userId, productId, quantity) => {
+  const db = await collection();
+  let cartItem = await db.findOne({userId, productId});
+  // let cartItem = list.find((item) => item.userId === userId && item.productId === productId);
   if (cartItem) {
     cartItem.quantity += quantity;
+    db.updateOne({userId, productId}, cartItem);
   } else {
     cartItem = { 
       id: list.length + 1, 
       quantity, 
       productId, userId 
     };
-    list.push(cartItem);
+    
+    await db.insertOne(cartItem);
   }
   return { ...cartItem, product: getProduct(productId) };
 };
@@ -40,14 +50,17 @@ const add = (userId, productId, quantity) => {
  * @param {number} quantity 
  * @returns 
  */
-const update = (userId, productId, quantity) => {
+const update = async (userId, productId, quantity) => {
+  const db = await collection();
   const index = list.findIndex((item) => item.userId === userId && item.productId === productId);
   if (index !== -1) {
     if (quantity === 0) {
-      list.splice(index, 1);
+      await db.deleteOne({userId, productId});
       return "null";
     } else {
-      list[index].quantity = quantity;
+      let cartItem = await db.findOne({userId, productId});
+      cartItem.quantity = quantity;
+      db.updateOne({userId, productId}, cartItem);
     }
   } else {
     throw new Error('Cart item not found');

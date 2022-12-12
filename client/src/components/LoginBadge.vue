@@ -17,6 +17,25 @@ function getEmail() {
     return "Guest";
   }
 }
+
+async function google_login() {
+  const authClient = google.accounts.oauth2.initTokenClient({
+    client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+    scope: "profile email https://www.googleapis.com/auth/calendar.readonly",
+    callback(token: any) {
+      console.log({ token });
+      const data = fetch(`https://www.googleapis.com/oauth2/v1/user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    },
+  });
+  authClient.requestAccessToken();
+}
+</script>
+<script lang="ts">
+declare const google: any;
 </script>
 
 <template>
@@ -27,7 +46,7 @@ function getEmail() {
     <RouterLink
       to="login"
       class="button is-light"
-      @click="login(getName(), getEmail(), 'password')"
+      @click.prevent="google_login"
     >
       Log in
     </RouterLink>
